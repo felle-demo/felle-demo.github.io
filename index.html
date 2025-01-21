@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="" https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <title>FELLE</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="">
+
+    <div class="container">
+        <header role="banner">
+        </header>
+        <main role="main">
+            <article itemscope itemtype="https://schema.org/BlogPosting">
+
+                <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+                    <div class="text-center">
+                        <h1>FELLE</h1>
+                        <h2>Autoregressive Speech Synthesis with Token-Wise Flow Matching</h2>
+                        <br>
+
+                    </div>
+                    <p>
+                        <b>Abstract.</b>
+                        We present FELLE, a flow-matching-based autoregressive framework for text-to-speech (TTS)
+                        generation, emphasizing the construction of continuous representations to enhance temporal
+                        coherence and high performance. To model fine-grained continuous representations, the framework
+                        adopts a coarse-to-fine generation process, progressively refining outputs from coarse to fine
+                        granularity, ensuring high-quality synthesis. By incorporating autoregressive modeling, the
+                        method dynamically adjusts initial distributions based on previous outputs, effectively
+                        capturing temporal dependencies and ensuring seamless continuity in sequential data. This
+                        approach demonstrates the potential of flow-matching mechanisms in advancing autoregressive
+                        mel-spectrogram language modeling for TTS, delivering significant improvements in both
+                        generation quality.
+                    </p>
+
+                    <p>
+
+                        <!-- <br> <br> -->
+                        <b>Contents</b>
+                    <ul>
+                        <li><a href="#model-overview">Model Overview</a></li>
+                        <li><a href="#cross_infer">Zero-Shot Text-to-Speech for Cross-Sentence Task</a></li>
+                        <li><a href="#conti_infer">Zero-Shot Text-to-Speech for Continuation Task</a></li>
+                        <li><a href="#Ethics-Statement">Ethics Statement</a></li>
+                    </ul>
+                    </p>
+
+
+                </div>
+
+
+                <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+                    <h2 id="model-overview" style="text-align: center;">Model Overview</h2>
+
+                    <body>
+                        <p style="text-align: center;">
+                            <img src="pics/felle-demo.png" height="500" width="800">
+                        </p>
+                    </body>
+                    <p style="width: 100%; margin: auto; ">
+                        <b>Figure.</b>
+                        The overview of FELLE , which uses a Coarse-to-Fine module to model complex continuous
+                        representations.
+                    </p>
+                </div>
+
+
+                <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+                    <h2 id="cross_infer" style="text-align: center;">Zero-Shot Text-to-Speech for Cross-Sentence Task
+                    </h2>
+
+                    <div class="table-responsive pt-3">
+                        <p style="text-align: center;">
+                            Samples are from LibriSpeech dataset.
+                        </p>
+                        <table class="table table-hover pt-2">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center">English Text</th>
+                                    <th style="text-align: center">Speaker Prompt</th>
+                                    <th style="text-align: center">FELLE</th>
+                                    <th style="text-align: center">MELLE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">for a long time he
+                                        had wished to explore the beautiful land of oz in which they lived
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/1284-1180-0003_s0_prefix-1284-1180-0002_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/1284-1180-0003_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/1284-1180-0003_s2_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">he shall not leave
+                                        you day or night whether you are working or playing or sleeping</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/5142-33396-0038_s0_prefix-5142-33396-0036_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/5142-33396-0038_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/5142-33396-0038_s3_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">john taylor who had
+                                        supported her through college was interested in cotton</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/1995-1826-0002_s0_prefix-1995-1826-0000_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/1995-1826-0002_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/1995-1826-0002_s4_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">soft heart he said
+                                        gently to her then to thorkel well let him go thorkel</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/5142-33396-0065_s0_prefix-5142-33396-0059_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/5142-33396-0065_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/5142-33396-0065_s2_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">and lay me down in
+                                        thy cold bed and leave my shining lot</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/908-157963-0027_s0_prefix-908-157963-0026_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/908-157963-0027_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/908-157963-0027_s4_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+
+
+                                <!-- <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">but plato has not
+                                        the same mastery over his instrument which he exhibits in the phaedrus or
+                                        symposium</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/2961-960-0016_s0_prefix-2961-960-0015_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/2961-960-0016_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/2961-960-0016_s3_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr> -->
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">the stop at
+                                        queenstown the tedious passage up the mersey were things that he noted dimly
+                                        through his growing impatience</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/4446-2275-0000_s0_prefix-4446-2273-0035_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/4446-2275-0000_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/4446-2275-0000_s2_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">then he rushed down
+                                        stairs into the courtyard shouting loudly for his soldiers and threatening to
+                                        patch everybody in his dominions if the sailorman was not recaptured</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source
+                                                src="audio/cross_sentence/speaker/8555-284447-0000_s0_prefix-8555-292519-0013_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/felle/8555-284447-0000_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/cross_sentence/melle/8555-284447-0000_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+
+                <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+                    <h2 id="conti_infer" style="text-align: center;">Zero-Shot Text-to-Speech for Continuation Task</h2>
+
+                    <div class="table-responsive pt-3">
+                        <p style="text-align: center;">
+                            Samples are from LibriSpeech dataset.
+                        </p>
+                        <table class="table table-hover pt-2">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center">English Text</th>
+                                    <th style="text-align: center">Speaker Prompt</th>
+                                    <th style="text-align: center">FELLE</th>
+                                    <th style="text-align: center">MELLE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">milligram roughly
+                                        128000 of an ounce</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/8463-294825-0016.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/8463-294825-0016_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/8463-294825-0016_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">i get tired of
+                                        seeing men and horses going up and down up and down
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/237-134500-0032.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/237-134500-0032_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/237-134500-0032_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">i will show you what
+                                        a good job i did and she went to a tall cupboard and threw open the doors</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/1284-1180-0032.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/1284-1180-0032_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/1284-1180-0032_s4_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">the utility of
+                                        consumption as an evidence of wealth is to be classed as a derivative growth
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/3570-5694-0001.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/3570-5694-0001_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/3570-5694-0001_s4_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">but philip is honest
+                                        and he has talent enough if he will stop scribbling to make his way</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/4970-29095-0032.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/4970-29095-0032_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/4970-29095-0032_s1_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">i made her for only
+                                        20 oars because i thought few men would follow me for i was young 15 years old
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/5142-33396-0006.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/5142-33396-0006_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/5142-33396-0006_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">they they excite me
+                                        in some way and i i can not bear them you must excuse me</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/6829-68771-0027.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/6829-68771-0027_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/6829-68771-0027_s1_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;vertical-align:middle;width: 600px">it sounded dull it
+                                        sounded strange and all the more so because of his main condition which was</td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/speaker/121-127105-0034.flac" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/felle/121-127105-0034_s0_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <audio controls="controls" style="width: 140px;">
+                                            <source src="audio/continuation/melle/121-127105-0034_s1_gen.wav" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+                    <h2 id="Ethics-Statement" style="text-align: center;">Ethics Statement</h2>
+                    <p>
+                        FELLE is purely a research project. FELLE could synthesize speech that maintains speaker
+                        identity and could be used for
+                        education, entertainment, journalistic, self-authored content, accessibility features,
+                        interactive voice response
+                        systems, translation, chat-bot, and so on. While FELLE can speak in a voice like the voice
+                        talent, the similarity, and
+                        naturalness depend on the length and quality of the speech prompt, the background noise, as well
+                        as other factors. It
+                        may carry potential risks in the misuse of the model, such as spoofing voice identification or
+                        impersonating a specific
+                        speaker. We conducted the experiments under the assumption that the user agrees to be the target
+                        speaker in speech
+                        synthesis. If the model is generalized to unseen speakers in the real world, it should include a
+                        protocol to ensure that
+                        the speaker approves the use of their voice and a synthesized speech detection model.
+
+                    <p>This page is for <b>research demonstration purposes</b> only.</p>
+
+                    </p>
+                </div>
+
+            </article>
+        </main>
+    </div>
+
+</body>
+
+</html>
