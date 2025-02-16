@@ -26,22 +26,23 @@
                 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
                     <div class="text-center">
                         <h1>FELLE</h1>
-                        <h2>Autoregressive Speech Synthesis with Token-Wise Flow Matching</h2>
+                        <h2>Autoregressive Speech Synthesis with Token-Wise Coarse-to-Fine Flow Matching</h2>
                         <br>
 
                     </div>
                     <p>
                         <b>Abstract.</b>
-                        We present FELLE, a flow-matching-based autoregressive framework for text-to-speech (TTS)
-                        generation, emphasizing the construction of continuous representations to enhance temporal
-                        coherence and high performance. To model fine-grained continuous representations, the framework
-                        adopts a coarse-to-fine generation process, progressively refining outputs from coarse to fine
-                        granularity, ensuring high-quality synthesis. By incorporating autoregressive modeling, the
-                        method dynamically adjusts initial distributions based on previous outputs, effectively
-                        capturing temporal dependencies and ensuring seamless continuity in sequential data. This
-                        approach demonstrates the potential of flow-matching mechanisms in advancing autoregressive
-                        mel-spectrogram language modeling for TTS, delivering significant improvements in both
-                        generation quality.
+                        To advance continuous-valued token modeling and temporal-coherence enforcement, we propose
+                        FELLE, an autoregressive model that integrates language modeling with token-wise flow matching.
+                        By leveraging the autoregressive nature of language models and the generative efficacy of flow
+                        matching, FELLE effectively predicts continuous-valued tokens (mel-spectrograms). For each
+                        continuous-valued token, FELLE modifies the general prior distribution in flow matching by
+                        incorporating information from the previous step, improving coherence and stability.
+                        Furthermore, to enhance synthesis quality, FELLE introduces a <i>coarse-to-fine</i>
+                        flow-matching mechanism, generating continuous-valued tokens hierarchically, conditioned on the
+                        language model's output. Experimental results demonstrate the potential of incorporating
+                        flow-matching techniques in autoregressive mel-spectrogram modeling, leading to significant
+                        improvements in TTS generation quality
                     </p>
 
                     <p>
@@ -65,7 +66,7 @@
 
                     <body>
                         <p style="text-align: center;">
-                            <img src="pics/felle-demo.png" height="500" width="800">
+                            <img src="pics/overview.png" height="500" width="800">
                         </p>
                     </body>
                     <p style="width: 100%; margin: auto; ">
@@ -89,8 +90,8 @@
                                 <tr>
                                     <th style="text-align: center">English Text</th>
                                     <th style="text-align: center">Speaker Prompt</th>
-                                    <th style="text-align: center">FELLE</th>
                                     <th style="text-align: center">MELLE</th>
+                                    <th style="text-align: center">FELLE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,13 +108,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/1284-1180-0003_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/1284-1180-0003_s2_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/1284-1180-0003_s2_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/1284-1180-0003_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -130,13 +131,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/5142-33396-0038_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/5142-33396-0038_s3_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/5142-33396-0038_s3_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/5142-33396-0038_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -153,13 +154,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/1995-1826-0002_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/1995-1826-0002_s4_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/1995-1826-0002_s4_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/1995-1826-0002_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -177,13 +178,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/5142-33396-0065_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/5142-33396-0065_s2_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/5142-33396-0065_s2_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/5142-33396-0065_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -200,13 +201,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/908-157963-0027_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/908-157963-0027_s4_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/908-157963-0027_s4_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/908-157963-0027_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -226,13 +227,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/2961-960-0016_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/2961-960-0016_s3_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/2961-960-0016_s3_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/2961-960-0016_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -250,13 +251,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/4446-2275-0000_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/4446-2275-0000_s2_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/4446-2275-0000_s2_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/4446-2275-0000_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -275,13 +276,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/felle/8555-284447-0000_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/melle/8555-284447-0000_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/cross_sentence/melle/8555-284447-0000_s0_gen.wav" />
+                                            <source src="audio/cross_sentence/felle/8555-284447-0000_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -306,8 +307,8 @@
                                 <tr>
                                     <th style="text-align: center">English Text</th>
                                     <th style="text-align: center">Speaker Prompt</th>
-                                    <th style="text-align: center">FELLE</th>
                                     <th style="text-align: center">MELLE</th>
+                                    <th style="text-align: center">FELLE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -322,13 +323,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/8463-294825-0016_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/8463-294825-0016_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/8463-294825-0016_s0_gen.wav" />
+                                            <source src="audio/continuation/felle/8463-294825-0016_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -345,13 +346,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/237-134500-0032_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/237-134500-0032_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/237-134500-0032_s0_gen.wav" />
+                                            <source src="audio/continuation/felle/237-134500-0032_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -367,13 +368,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/1284-1180-0032_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/1284-1180-0032_s4_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/1284-1180-0032_s4_gen.wav" />
+                                            <source src="audio/continuation/felle/1284-1180-0032_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -390,13 +391,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/3570-5694-0001_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/3570-5694-0001_s4_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/3570-5694-0001_s4_gen.wav" />
+                                            <source src="audio/continuation/felle/3570-5694-0001_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -412,13 +413,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/4970-29095-0032_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/4970-29095-0032_s1_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/4970-29095-0032_s1_gen.wav" />
+                                            <source src="audio/continuation/felle/4970-29095-0032_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -435,13 +436,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/5142-33396-0006_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/5142-33396-0006_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/5142-33396-0006_s0_gen.wav" />
+                                            <source src="audio/continuation/felle/5142-33396-0006_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -458,13 +459,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/6829-68771-0027_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/6829-68771-0027_s1_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/6829-68771-0027_s1_gen.wav" />
+                                            <source src="audio/continuation/felle/6829-68771-0027_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
@@ -480,13 +481,13 @@
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/felle/121-127105-0034_s0_gen.wav" />
+                                            <source src="audio/continuation/melle/121-127105-0034_s1_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
                                     <td style="text-align: center">
                                         <audio controls="controls" style="width: 140px;">
-                                            <source src="audio/continuation/melle/121-127105-0034_s1_gen.wav" />
+                                            <source src="audio/continuation/felle/121-127105-0034_s0_gen.wav" />
                                             Your browser does not support the audio element.
                                         </audio>
                                     </td>
